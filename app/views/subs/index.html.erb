@@ -1,0 +1,8 @@
+<h1>All Subs</h1>
+<ul>
+  <% @subs.each do |sub| %>
+  <li><%=link_to "#{sub.title}", sub_url(sub)%> <%=(button_to 'Edit Sub', edit_sub_url(sub), method: :get) if current_user == sub.moderator%></li>
+
+  <% end %>
+</ul>
+<%= link_to "New Sub", new_sub_url %>

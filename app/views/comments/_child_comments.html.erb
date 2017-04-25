@@ -1,0 +1,11 @@
+<ul>
+  <% com_hash[comment.id].sort_by(&:score).reverse.each do |child| %>
+
+    <li><%="#{child.score}: "%><%="#{comment.author.username}: "%><%= link_to "#{child.content}", comment_url(child) %></li>
+    <br>
+    <%= button_to 'Upvote', upvote_post_comment_url(id: child.id, post_id: child.post_id), method: :post %>
+    <%= button_to 'Downvote', downvote_post_comment_url(id: child.id, post_id: child.post_id), method: :post %>
+    <%= render 'comments/child_comments', comment: child, com_hash: com_hash %>
+    <% end %>
+
+</ul>

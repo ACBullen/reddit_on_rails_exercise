@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RedditOnRails</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <% if current_user %>
+    <%= current_user.username %>
+    <%= button_to 'Sign Out', session_url, method: :delete %>
+    <% end %>
+  <%= flash[:errors].join("<br>").html_safe if flash[:errors] %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<h1>Welcome to <%=@sub.title%></h1>
+<p><%=@sub.description%></p>
+<h2>Moderated by <%=@sub.moderator.username%></h2>
+<%= link_to 'All Subs', subs_url %>
+<h3>Posts</h3>
+<ul>
+  <% @sorted = @sub.posts.sort_by(&:score).reverse %>
+<% @sorted.each do |post| %>
+  <li><%="#{post.score}: "%><%=link_to "#{post.title}", post_url(post.title)%></li>
+  <% if post.content %>
+    <p><%=post.content%></p>
+    <% end %>
+    <br>
+    <%= button_to 'Upvote', upvote_post_url, method: :post %>
+    <%= button_to 'Downvote', downvote_post_url, method: :post %>
+  <% if current_user == post.author %>
+    <%= button_to 'Edit', edit_post_url(post.title), method: :get %>
+  <% end %>
+<% end %>
+</ul>
+<%= button_to 'New Post', new_post_url, method: :get %>

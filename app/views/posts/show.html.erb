@@ -1,0 +1,16 @@
+<h1><%= @post.title %></h1>
+<h3>By: <%=@post.author.username%></h3>
+<% if @post.url %>
+<h4><%=link_to "#{@post.url}", @post.url%></h4>
+<% end %>
+<ul>
+
+  <% @com_hash[nil].sort_by(&:score).reverse.each do |comment| %>
+  <li><%="#{comment.score}: "%><%="#{comment.author.username}: "%><%=link_to "#{comment.content}", comment_url(comment) %></li>
+  <br>
+  <%= button_to 'Upvote', upvote_post_comment_url(id: comment.id, post_id: @post.id), method: :post %>
+  <%= button_to 'Downvote', downvote_post_comment_url(id: comment.id, post_id: @post.id), method: :post %>
+  <%= render 'comments/child_comments', comment: comment, com_hash: @com_hash %>
+  <% end %>
+</ul>
+<%= link_to "Add Comment", new_post_comment_url(@post) %>

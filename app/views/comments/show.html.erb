@@ -1,0 +1,3 @@
+<h3><%= @comment.content %></h3>
+<%= render 'child_comments', comment: @comment, com_hash: @comment.comments_by_parent_id %>
+<%= render 'form' %>
